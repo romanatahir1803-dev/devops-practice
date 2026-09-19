@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Mattress AI Intelligence Dashboard</title>
+    <!-- Modern Typography: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js + DataLabels Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dash-container">
+
+        <!-- Top Header Bar -->
+        <header class="top-nav">
+            <div class="nav-brand">
+                <div class="brand-emblem">🛏️</div>
+                <div>
+                    <h1 class="brand-title">Mattress Market Intelligence</h1>
+                    <p class="brand-desc">AI Analysis of Customer Feedback & Search Intent • 🇩🇪 Germany & 🇳🇱 Netherlands</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="/api/export/excel" class="action-btn excel-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg>
+                    Download Excel (.xlsx)
+                </a>
+                <a href="/api/export/markdown" class="action-btn doc-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Dossier (.md)
+                </a>
+            </div>
+        </header>
+
+        <!-- Quick Filter Switcher Pills -->
+        <div class="view-switch-bar">
+            <span class="switch-label">View Mode:</span>
+            <button class="view-btn active" data-filter="all">🔍 Full Overview</button>
+            <button class="view-btn" data-filter="likes">🌟 What Customers Like</button>
+            <button class="view-btn" data-filter="pains">⚠️ Complaints & Pain Points</button>
+            <button class="view-btn" data-filter="search">🔎 What Buyers Search</button>
+        </div>
+
+        <!-- 30-SECOND EXECUTIVE SUMMARY BANNER -->
+        <section class="verdict-banner section-card" id="verdictSection">
+            <div class="verdict-header">
+                <span class="pill-chip">⚡ 30-Second Executive Summary</span>
+                <span class="pill-market">🇩🇪 Amazon.de & 🇳🇱 Amazon.nl Analyzed</span>
+            </div>
+            
+            <div class="verdict-grid">
+                <!-- AM Verdict -->
+                <div class="verdict-box am-verdict">
+                    <div class="verdict-top">
+                        <span class="v-badge v-am">🇩🇪 AM Qualitätsmatratzen</span>
+                        <span class="v-price">€179.00</span>
+                    </div>
+                    <h3 class="v-title">Best For: Back Pain Relief & Sensitive Sleepers</h3>
+                    <p class="v-summary"><strong>Why Customers Buy:</strong> Superior 7-zone contouring eliminates morning spinal stiffness. Top-tier 60°C split washable cover for hygiene.</p>
+                    <div class="v-watchout">
+                        <strong>⚠️ Watch Out:</strong> 28% report pelvic indentation (*Liegekuhle*) after 6–8 months if sleeper weight >85 kg.
+                    </div>
+                </div>
+
+                <!-- Bett1 Verdict -->
+                <div class="verdict-box bett1-verdict">
+                    <div class="verdict-top">
+                        <span class="v-badge v-bett1">🇩🇪 bett1 BODYGUARD</span>
+                        <span class="v-price">€199.00</span>
+                    </div>
+                    <h3 class="v-title">Best For: Dual Hardness (Reversible H3/H4)</h3>
+                    <p class="v-summary"><strong>Why Customers Buy:</strong> 2-in-1 reversible concept eliminates risk of buying wrong firmness. Zero chemical odor upon unpacking.</p>
+                    <div class="v-watchout">
+                        <strong>⚠️ Watch Out:</strong> 29% complain that the H4 side is excessively stiff ("like sleeping on a wooden plank").
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: PRODUCT SCORECARDS -->
+        <section class="section-card" id="scorecardsSection">
+            <h2 class="card-heading">1. Side-by-Side Product Comparison</h2>
+            
+            <div class="comparison-grid">
+                
+                <!-- AM Card -->
+                <div class="product-tile tile-am">
+                    <div class="tile-header">
+                        <div>
+                            <span class="brand-pill am-brand">AM Qualitätsmatratzen</span>
+                            <span class="asin-code">ASIN: B01EGRB0JM</span>
+                        </div>
+                        <span class="price-val">€179.00</span>
+                    </div>
+
+                    <h3 class="tile-title">7-Zonen Kaltschaummatratze Premium</h3>
+
+                    <!-- Big Metrics Bar -->
+                    <div class="stats-row">
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Rating</span>
+                            <strong class="stat-val">⭐ 4.6 <small>/ 5</small></strong>
+                            <span class="stat-sub">5,840 reviews</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Positive Feedback</span>
+                            <strong class="stat-val text-green">91%</strong>
+                            <span class="stat-sub">High Satisfaction</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Core Type</span>
+                            <strong class="stat-val text-white">Kaltschaum</strong>
+                            <span class="stat-sub">RG 45 High Density</span>
+                        </div>
+                    </div>
+
+                    <!-- Sentiment Bar -->
+                    <div class="progress-wrap">
+                        <div class="progress-header">
+                            <span>Sentiment Distribution:</span>
+                            <span class="text-green"><strong>82% Pos</strong> • 10% Neu • 8% Neg</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="p-fill fill-pos" style="width: 82%;"></div>
+                            <div class="p-fill fill-neu" style="width: 10%;"></div>
+                            <div class="p-fill fill-neg" style="width: 8%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pros & Cons Checklist -->
+                    <div class="check-list">
+                        <div class="check-item pro">
+                            <span class="chk-icon">✓</span>
+                            <span><strong>Spinal Alignment:</strong> 7 ergonomically tuned zones relieve back & shoulder pressure.</span>
+                        </div>
+                        <div class="check-item pro">
+                            <span class="chk-icon">✓</span>
+                            <span><strong>Washable Cover:</strong> 360° zipper splits cover in two for regular 60°C washing.</span>
+                        </div>
+                        <div class="check-item con">
+                            <span class="chk-icon">✗</span>
+                            <span><strong>Center Sagging:</strong> Potential Liegekuhle in center after 6-8 months for users >85kg.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bett1 Card -->
+                <div class="product-tile tile-bett1">
+                    <div class="tile-header">
+                        <div>
+                            <span class="brand-pill bett1-brand">bett1.de</span>
+                            <span class="asin-code">ASIN: B01CGVNC3W</span>
+                        </div>
+                        <span class="price-val">€199.00</span>
+                    </div>
+
+                    <h3 class="tile-title">BODYGUARD® Anti-Kartell-Matratze</h3>
+
+                    <!-- Big Metrics Bar -->
+                    <div class="stats-row">
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Rating</span>
+                            <strong class="stat-val">⭐ 4.5 <small>/ 5</small></strong>
+                            <span class="stat-sub">14,200 reviews</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Positive Feedback</span>
+                            <strong class="stat-val text-green">89%</strong>
+                            <span class="stat-sub">High Satisfaction</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-lbl">Core Type</span>
+                            <strong class="stat-val text-white">QXSchaum®</strong>
+                            <span class="stat-sub">2-in-1 Dual Firmness</span>
+                        </div>
+                    </div>
+
+                    <!-- Sentiment Bar -->
+                    <div class="progress-wrap">
+                        <div class="progress-header">
+                            <span>Sentiment Distribution:</span>
+                            <span class="text-green"><strong>79% Pos</strong> • 11% Neu • 10% Neg</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="p-fill fill-pos" style="width: 79%;"></div>
+                            <div class="p-fill fill-neu" style="width: 11%;"></div>
+                            <div class="p-fill fill-neg" style="width: 10%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pros & Cons Checklist -->
+                    <div class="check-list">
+                        <div class="check-item pro">
+                            <span class="chk-icon">✓</span>
+                            <span><strong>2 Hardness Levels:</strong> Flip between H3 (mittelfest) and H4 (fest) at home.</span>
+                        </div>
+                        <div class="check-item pro">
+                            <span class="chk-icon">✓</span>
+                            <span><strong>No Chemical Odor:</strong> Expands in hours with zero toxic chemical off-gassing.</span>
+                        </div>
+                        <div class="check-item con">
+                            <span class="chk-icon">✗</span>
+                            <span><strong>Excessive Hardness:</strong> H4 side criticized as too rigid / stiff for lighter sleepers.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: HORIZONTAL BAR CHARTS -->
+        <section class="section-card" id="chartsSection">
+            <h2 class="card-heading">2. Horizontal Comparison Charts</h2>
+            
+            <div class="chart-cards-list">
+                
+                <!-- Chart 1: Likes -->
+                <div class="chart-item" id="chartLikesCard">
+                    <div class="chart-header">
+                        <div class="chart-icon-box green-icon">🌟</div>
+                        <div>
+                            <h3 class="chart-item-title">What Customers Like Most (% Positive Mentions)</h3>
+                            <p class="chart-item-sub">Higher score is better (0% - 100%) • Direct head-to-head customer satisfaction</p>
+                        </div>
+                    </div>
+                    <div class="chart-stage">
+                        <canvas id="canvasLikes"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Pains -->
+                <div class="chart-item" id="chartPainsCard">
+                    <div class="chart-header">
+                        <div class="chart-icon-box red-icon">⚠️</div>
+                        <div>
+                            <h3 class="chart-item-title">Customer Complaints & Pain Points (% Negative Mentions)</h3>
+                            <p class="chart-item-sub">Lower score is better (0% - 40%) • Leading reasons for product dissatisfaction & returns</p>
+                        </div>
+                    </div>
+                    <div class="chart-stage">
+                        <canvas id="canvasPains"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: SEARCH INTENT SUMMARY -->
+        <section class="section-card" id="searchSection">
+            <h2 class="card-heading">3. What Buyers Search When Buying a Mattress (Amazon DE & NL)</h2>
+            
+            <div class="demand-grid">
+                
+                <div class="demand-card">
+                    <div class="d-header">
+                        <span class="d-icon">📏</span>
+                        <h4>Top Sizes Demanded</h4>
+                    </div>
+                    <div class="d-content">
+                        <div class="d-item">
+                            <span>140 x 200 cm (Most Popular)</span>
+                            <span class="d-tag high">42% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>90 x 200 cm (Single Bed)</span>
+                            <span class="d-tag">24% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>180 x 200 cm (King Size)</span>
+                            <span class="d-tag">18% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>160 x 200 cm (Queen Size)</span>
+                            <span class="d-tag">11% Share</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card">
+                    <div class="d-header">
+                        <span class="d-icon">⚖️</span>
+                        <h4>Firmness (Härtegrad)</h4>
+                    </div>
+                    <div class="d-content">
+                        <div class="d-item">
+                            <span>H3 Mittelfest (80–100 kg)</span>
+                            <span class="d-tag high">58% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>H2 Weich (bis 80 kg)</span>
+                            <span class="d-tag">27% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>H4 Fest (über 100 kg)</span>
+                            <span class="d-tag">15% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Wendematratze (2-in-1)</span>
+                            <span class="d-tag trend">Trending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card">
+                    <div class="d-header">
+                        <span class="d-icon">🩺</span>
+                        <h4>Pain & Health Triggers</h4>
+                    </div>
+                    <div class="d-content">
+                        <div class="d-item">
+                            <span>Rückenschmerzen (Back pain)</span>
+                            <span class="d-tag alert">34% Search</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Seitenschläfer (Side sleeper)</span>
+                            <span class="d-tag alert">28% Search</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Matras rugpijn (Dutch queries)</span>
+                            <span class="d-tag alert">High Intent</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Bandscheibenvorfall (Disc care)</span>
+                            <span class="d-tag alert">Specialized</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card">
+                    <div class="d-header">
+                        <span class="d-icon">🌿</span>
+                        <h4>Materials & Hygiene</h4>
+                    </div>
+                    <div class="d-content">
+                        <div class="d-item">
+                            <span>7-Zonen Kaltschaum</span>
+                            <span class="d-tag high">52% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Taschenfederkern (Springs)</span>
+                            <span class="d-tag">28% Share</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Bezug waschbar 60°C</span>
+                            <span class="d-tag">Must-Have</span>
+                        </div>
+                        <div class="d-item">
+                            <span>Öko-Tex Standard 100</span>
+                            <span class="d-tag">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-note">
+            <p>Mattress Market Intelligence Dashboard • Built for Amazon Germany & Netherlands Research</p>
+        </footer>
+
+    </div>
+
+    <!-- Script -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
